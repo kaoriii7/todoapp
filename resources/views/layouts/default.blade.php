@@ -11,7 +11,7 @@
             box-sizing: border-box;
         }
         body {
-            background: #483D8B;
+            background: #333399;
             display: flex;
             
         }

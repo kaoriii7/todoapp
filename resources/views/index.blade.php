@@ -7,6 +7,13 @@
         width: 100%;
         margin: 10px 0;
     }
+    .input-table td:first-child {
+        text-align: left;
+    }
+    .input-table td:last-child {
+        text-align: right;
+        width: 70px;
+    }
     .input {
         width: 100%;
         padding: 10px;
@@ -15,8 +22,7 @@
     }
     .input-btn {
         width: 100%;
-        padding: 7px;
-        margin-left: 10px;
+        padding: 8px;
         color: #CC66FF;
         border: 2px solid #CC66FF;
         border-radius: 5px;
@@ -38,9 +44,52 @@
         padding: 20px 0;
     }
     .list-table td {
-        padding: 10px 0;
+        height: 50px;
     }
-</style>
+    .update-btn-td, .delete-btn-td {
+        height: 100%;
+    }
+    .task {
+        width: 100%;
+        padding: 7px 5px;
+        border: 2px solid #DCDCDC;
+        border-radius: 5px;
+    }
+    .update-btn, .delete-btn {
+        width: 70px;
+        padding: 8px;
+        border-radius: 5px;
+        background: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.6s;
+    }
+    .update-btn {
+        color: #FF9966;
+        border: 2px solid #FF9966;
+    }
+    .update-btn:hover {
+        background: #FF9966;
+        color: #fff;
+    }
+    .delete-btn {
+        color: #66FFFF;
+        border: 2px solid #66FFFF;
+    }
+    .delete-btn:hover {
+        background: #66FFFF;
+        color: #fff;
+    }
+    @media screen and (max-width: 768px) {
+        .update-btn-td, .delete-btn-td {
+            width: 50px;
+        }
+
+        .update-btn, .delete-btn {
+            height: 100%;
+        }
+    }
+    </style>
 
 @section('title', 'Todo List')
 
@@ -78,23 +127,27 @@
         <th>削除</th>
     </tr>
     @foreach ($items as $item)
-        <tr>
-            <td>
-                {{$item->updated_at}}
+    <tr>
+        <td class="date-td">
+            <input class="date" type="hidden" name="id" value="{{$item->id}}">
+            {{$item->updated_at}}
+        </td>
+        <form action="/todo/update?id={{$item->id}}" method="post"">
+            @csrf
+            <td class="task-td">
+                <input class="task" type="text" name="content" value="{{$item->content}}">
             </td>
-            <form action="/todo/update" method="post">
-                <td>
-                @csrf
-                    <input type="text" name="content" value="{{$item->content}}">
-                </td>
-            </form>
-            <td>
-                <button>更新</button>
+            <td class="update-btn-td">
+                <button class="update-btn">更新</button>
             </td>
-            <td>
-                <button>削除</button>
+        </form>
+        <form action="/todo/delete?id={{$item->id}}" method="post">
+            @csrf
+            <td class="delete-btn-td">
+                <input class="delete-btn" type="submit" name="delete-btn" value="削除">
             </td>
-        </tr>
+        </form>
+    </tr>
     @endforeach
 </table>
 @endsection
