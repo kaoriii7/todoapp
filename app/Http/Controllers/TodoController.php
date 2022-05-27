@@ -19,11 +19,6 @@ class TodoController extends Controller
         Todo::create($form);
         return redirect('/');
     } 
-    public function edit(Request $request)
-    {
-        $todo = Todo::find($request->id);
-        return view('edit', ['form' => $todo]);
-    }
     public function update(Request $request)
     {
         $this->validate($request, Todo::$rules);

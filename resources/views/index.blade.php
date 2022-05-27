@@ -82,9 +82,12 @@
             <td>
                 {{$item->updated_at}}
             </td>
-            <td>
-                {{$item->content}}
-            </td>
+            <form action="/todo/update" method="post">
+                <td>
+                @csrf
+                    <input type="text" name="content" value="{{$item->content}}">
+                </td>
+            </form>
             <td>
                 <button>更新</button>
             </td>
